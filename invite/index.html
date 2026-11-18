@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're invited to FSM - FSM</title>
+<meta name="description" content="A friend invited you to FSM, a free game that follows the real stock market.">
+<meta property="og:title" content="You're invited to FSM">
+<meta property="og:description" content="A friend invited you to FSM, a free game that follows the real stock market.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="../">FSM · Fantasy Stock Market</a><div class="tag">Collect stock cards. Play the real market. Risk nothing.</div></div></header>
+<main class="wrap">
+  <h1>You're invited to FSM</h1>
+  <p>A friend invited you to FSM, a free game that follows the real stock market. Collect stock cards with game points and watch them move with the real prices.</p>
+
+  <div class="card" id="has-code">
+    <p class="muted">Invite code</p>
+    <div class="code" id="code"></div>
+    <a class="btn btn-primary" id="open" href="#">Open in FSM</a>
+    <button class="btn btn-quiet" id="copy" type="button">Copy code</button>
+    <p class="muted">Use this code when you sign up, or within your first week. Once you finish your first lesson or play your first league, you and your friend each get 1,000 game points.</p>
+  </div>
+
+  <div class="card hidden" id="no-code">
+    <p>This link has no code. Ask your friend to send it again.</p>
+  </div>
+
+  <div class="card">
+    <h2>Don't have FSM yet?</h2>
+    <p>FSM is a free iPhone game in testing right now. Ask the friend who invited you to add you as a tester, then come back to this link.</p>
+  </div>
+
+  <p class="muted">FSM is a game for entertainment and learning. Points have no cash value and nothing in FSM is investment advice.</p>
+</main>
+<footer><div class="wrap"><a href="../">Home</a><a href="../privacy">Privacy policy</a></div></footer>
+<script>
+(function () {
+  var raw = new URLSearchParams(location.search).get("code") || "";
+  var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 16);
+  if (!code) {
+    document.getElementById("has-code").classList.add("hidden");
+    document.getElementById("no-code").classList.remove("hidden");
+    return;
+  }
+  document.getElementById("code").textContent = code;
+  document.getElementById("open").href = "fsm://invite/" + code;
+  var copy = document.getElementById("copy");
+  copy.addEventListener("click", function () {
+    var done = function () { copy.textContent = "Copied"; setTimeout(function () { copy.textContent = "Copy code"; }, 2000); };
+    if (navigator.clipboard) { navigator.clipboard.writeText(code).then(done, function () {}); }
+  });
+})();
+</script>
+</body>
+</html>
